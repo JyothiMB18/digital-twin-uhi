@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Digital Twin – LST, Hotspots, Shadows & 2D/3D</title>
+
+<script src="https://cesium.com/downloads/cesiumjs/releases/1.133/Build/Cesium/Cesium.js"></script>
+<link href="https://cesium.com/downloads/cesiumjs/releases/1.133/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="CSSnew.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div id="cesiumContainer"></div>
+
+<div id="sidePanel">
+
+  <div class="section">
+    <h3>🏙 Built Environment</h3>
+    <label class="item">
+      <input type="checkbox" id="toggleBuildings" checked> OSM Buildings
+    </label>
+    <button id="toggleViewBtn">🗺 Switch to 2D</button>
+  </div>
+
+  <div class="section">
+    <h3>🌡 Land Surface Temperature</h3>
+    <button id="playPauseBtn">⏸ Pause LST Animation</button>
+
+    <label class="item"><input type="checkbox" id="toggleLayer1"> LST 2024</label>
+    <label class="item"><input type="checkbox" id="toggleLayer2"> LST 2019</label>
+    <label class="item"><input type="checkbox" id="toggleLayer3"> LST 2014</label>
+    <label class="item"><input type="checkbox" id="toggleLayer4"> LST 2009</label>
+    <label class="item"><input type="checkbox" id="toggleLayer5"> LST 2004</label>
+  </div>
+
+  <div class="section">
+    <h3>🔥 UHI Hotspots</h3>
+    <div class="item hotspot" data-lat="12.9507" data-lon="77.6696">Hotspot 1</div>
+    <div class="item hotspot" data-lat="13.0114" data-lon="77.6071">Hotspot 2</div>
+    <div class="item hotspot" data-lat="12.9456" data-lon="77.5281">Hotspot 3</div>
+    <div class="item hotspot" data-lat="12.8626" data-lon="77.6585">Hotspot 4</div>
+  </div>
+
+  <div class="layer-toggle">
+  <label>
+    <input type="checkbox" id="toggleTrees" checked>
+    🌳 Trees
+  </label>
+</div>
+
+<div class="layer-toggle">
+  <label>
+    <input type="checkbox" id="toggleRoads" checked>
+    🛣 Roads
+  </label>
+</div>
+
+  <button id="toggleHotspots">📍 Show Hotspots</button>
+
+  <div class="section">
+    <h3>🔮 Predicted LST</h3>
+    <label class="item predicted"><input type="checkbox" id="togglePred1"> LST 2029 - Case 1</label>
+    <label class="item predicted"><input type="checkbox" id="togglePred2"> LST 2034 - Case 2</label>
+  </div>
+
+</div>
+
+<div id="zoomControls">
+  <button id="zoomInBtn">＋</button>
+  <button id="zoomOutBtn">－</button>
+</div>
+
+<div id="legend">
+  <div id="legendYear">Year: ----</div>
+  <div id="legendMax">– °C</div>
+  <div id="colorBar"></div>
+  <div id="legendMin">– °C</div>
+</div>
+
+<div id="timeControl">
+  <b>☀ Shadow Time</b><br><br>
+  Hour:
+  <input type="range" id="hourSlider" min="0" max="23" value="15">
+  <span id="hourValue">15:00</span><br><br>
+  Month:
+  <input type="range" id="monthSlider" min="1" max="12" value="4">
+  <span id="monthValue">Apr</span>
+</div>
+
+<div id="locationPanel">
+
+  <div id="closePanel">✖</div>
+
+  <h3 id="locTitle">Location</h3>
+
+  <div class="loc-section">
+    <h4>📊 Characteristics</h4>
+    <p>🏙 Land Use: <span id="locLand"></span></p>
+    <p>🌿 Vegetation: <span id="locVeg"></span></p>
+    <p>⚠ Risk: <span id="locRisk"></span></p>
+  </div>
+
+  <button id="toggleMitigation">🌿 Show Mitigation</button>
+
+  <div id="mitigationBox">
+    <ul>
+      <li>Green roofs</li>
+      <li>Urban trees</li>
+      <li>Cool pavements</li>
+    </ul>
+
+    <!-- 🖼 OPEN SOURCE IMAGE -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Green_roof.jpg">
+  </div>
+
+</div>
+
+<div id="weatherContainer">
+
+  <div id="weatherHeader">📊 Weather Analytics</div>
+
+  <div id="weatherContent">
+
+    <!-- 🔵 HISTORICAL -->
+    <h4 id="weatherDate">Date:</h4>
+
+    <div class="chart-box">
+      <canvas id="tempChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+      <canvas id="humidityChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+      <canvas id="windChart"></canvas>
+    </div>
+
+    <!-- 🟢 REALTIME -->
+    <h4 id="todayDate"></h4>
+
+    <div class="chart-box">
+      <canvas id="tempChartRealtime"></canvas>
+    </div>
+
+    <div class="chart-box">
+      <canvas id="humidityChartRealtime"></canvas>
+    </div>
+
+    <div class="chart-box">
+      <canvas id="windChartRealtime"></canvas>
+    </div>
+
+  </div>
+</div>
+
+
+<script type="module" src="JSnew.js"></script>
+</body>
+</html>
