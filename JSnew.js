@@ -359,7 +359,7 @@ roadDataSource.entities.values.forEach(entity => {
   }
 
 });
-roadDataSource.show = true;
+roadDataSource.show = false;
 
 const toggleRoads = document.getElementById("toggleRoads");
 
