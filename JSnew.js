@@ -359,10 +359,13 @@ roadDataSource.entities.values.forEach(entity => {
   }
 
 });
+// Initially OFF
 roadDataSource.show = false;
 
 const toggleRoads = document.getElementById("toggleRoads");
+toggleRoads.checked = false;
 
+// Toggle behavior
 toggleRoads.onchange = (e) => {
   roadDataSource.show = e.target.checked;
   viewer.scene.requestRender();
